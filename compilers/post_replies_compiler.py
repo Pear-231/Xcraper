@@ -5,14 +5,30 @@ from twikit_utilities.twikit_client import TwikitClient
 
 class PostRepliesCompiler:
     @staticmethod
-    async def compile_replies_data(client, user_posts_data, user_screen_name):
+    async def compile_replies_data(client, user_posts_data, user_screen_name, replies_file):
         replies_cursor = {}
         replies_data = []
 
-        file_path = f"{Directories.RESULTS_DIRECTORY}{user_screen_name}_repliers.csv"
+        last_processed_post_url = None
+        is_processing_allowed = False
+
+        if replies_file is not None:
+            replies_data = FileProcessing.import_from_csv(replies_file)
+            last_processed_post_url = replies_data[-1]["Replying to Post URL"]
+            replies_data = [reply for reply in replies_data if reply["Replying to Post URL"] != last_processed_post_url]
+
+        file_path = f"{Directories.RESULTS_DIRECTORY}{user_screen_name}_replies.csv"
         print("Getting replies data.")
 
         for post_data in user_posts_data:
+            post_url = post_data["Post URL"]
+
+            if replies_file is not None and is_processing_allowed == False:
+                if post_url == last_processed_post_url:
+                    is_processing_allowed = True
+                else:
+                    continue
+
             tweet_id = post_data["Post ID"]
             post = await TwikitClient.make_client_rate_limited_call(client, "get_tweet_by_id", None, tweet_id)
             replies = post.replies

@@ -4,16 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c21c2a0e-fa6d-4585-84ad-64c6a8299178" name="Changes" comment="Change Notes:&#10;- Reorganisation.">
-      <change afterPath="$PROJECT_DIR$/compilers/post_replies_compiler.py" afterDir="false" />
+    <list default="true" id="c21c2a0e-fa6d-4585-84ad-64c6a8299178" name="Changes" comment="Change Notes:&#10;- Added post_replies_compiler.&#10;- Refactored sleeping into individual methods.&#10;- Renaming.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compilers/post_quoters_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/compilers/post_quotes_compiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compilers/post_quotes_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/compilers/post_quotes_compiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compilers/post_replies_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/compilers/post_replies_compiler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compilers/post_reposters_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/compilers/post_reposters_compiler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compilers/user_posts_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/compilers/user_posts_compiler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/credentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/credentials.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/directories.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/directories.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/twikit_utilities/twikit_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/twikit_utilities/twikit_client.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +162,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731077190178</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Change Notes:&#10;- Added post_replies_compiler.&#10;- Refactored sleeping into individual methods.&#10;- Renaming.">
+      <option name="closed" value="true" />
+      <created>1731087322161</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1731087322161</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -183,7 +189,8 @@
     <MESSAGE value="Change Notes:&#10;- Added post_quoters_tool.&#10;- Some minor improvements to other tools." />
     <MESSAGE value="Change Notes:&#10;- Moved client initialisation.&#10;- Small refactoring of tools for simplicity." />
     <MESSAGE value="Change Notes:&#10;- Reorganisation." />
-    <option name="LAST_COMMIT_MESSAGE" value="Change Notes:&#10;- Reorganisation." />
+    <MESSAGE value="Change Notes:&#10;- Added post_replies_compiler.&#10;- Refactored sleeping into individual methods.&#10;- Renaming." />
+    <option name="LAST_COMMIT_MESSAGE" value="Change Notes:&#10;- Added post_replies_compiler.&#10;- Refactored sleeping into individual methods.&#10;- Renaming." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

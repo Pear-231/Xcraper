@@ -4,13 +4,29 @@ from twikit_utilities.twikit_client import TwikitClient
 
 class PostRepostersCompiler:
     @staticmethod
-    async def compile_reposters_data(client, user_posts_data, user_screen_name):
+    async def compile_reposters_data(client, user_posts_data, user_screen_name, reposters_file):
         reposters_data = []
+
+        last_processed_post_url = None
+        is_processing_allowed = False
+
+        if reposters_file is not None:
+            reposters_data = FileProcessing.import_from_csv(reposters_file)
+            last_processed_post_url = reposters_data[-1]["Reposted Post URL"]
+            reposters_data = [reposter for reposter in reposters_data if reposter["Reposted Post URL"] != last_processed_post_url]
 
         file_path = f"{Directories.RESULTS_DIRECTORY}{user_screen_name}_reposters.csv"
         print("Getting reposters data.")
 
         for post_data in user_posts_data:
+            post_url = post_data["Post URL"]
+
+            if reposters_file is not None and is_processing_allowed == False:
+                if post_url == last_processed_post_url:
+                    is_processing_allowed = True
+                else:
+                    continue
+
             reposters = await TwikitClient.make_client_rate_limited_call(client, "get_retweeters", None, post_data["Post ID"])
 
             reposts_count = post_data["Reposts"]

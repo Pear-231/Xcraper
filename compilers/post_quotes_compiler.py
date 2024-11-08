@@ -1,3 +1,4 @@
+from pathlib import Path
 from core.directories import Directories
 from core.utilities.data_compiler_helpers import DataCompilerHelpers
 from core.utilities.file_processing import FileProcessing
@@ -5,13 +6,29 @@ from twikit_utilities.twikit_client import TwikitClient
 
 class PostQuotesCompiler:
     @staticmethod
-    async def compile_quotes_data(client, user_posts_data, user_screen_name):
+    async def compile_quotes_data(client, user_posts_data, user_screen_name, quotes_file):
         quotes_data = []
 
-        file_path = f"{Directories.RESULTS_DIRECTORY}{user_screen_name}_quoters.csv"
+        last_processed_post_url = None
+        is_processing_allowed = False
+
+        if quotes_file is not None:
+            quotes_data = FileProcessing.import_from_csv(quotes_file)
+            last_processed_post_url = quotes_data[-1]["Quoting Post URL"]
+            quotes_data = [quote for quote in quotes_data if quote["Quoting Post URL"] != last_processed_post_url]
+
+        file_path = quotes_file or f"{Directories.RESULTS_DIRECTORY}{user_screen_name}_quoters.csv"
         print("Getting quotes data.")
 
         for post_data in user_posts_data:
+            post_url = post_data["Post URL"]
+
+            if quotes_file is not None and is_processing_allowed == False:
+                if post_url == last_processed_post_url:
+                    is_processing_allowed = True
+                else:
+                    continue
+
             query_post_url = DataCompilerHelpers.convert_url_from_x_to_twitter(post_data["Post URL"])
             quotes = await TwikitClient.make_client_rate_limited_call(client, "search_tweet", None, query_post_url, "Top")
 
