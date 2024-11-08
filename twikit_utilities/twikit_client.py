@@ -53,9 +53,7 @@ class TwikitClient:
         "add_reaction_to_message": 99999,
         "remove_reaction_from_message": 99999,
         "mute_user": 187,
-        "get_notifications_all": 180,
-        "get_notifications_mentions": 180,
-        "get_notifications_verified": 180,
+        "get_notifications": 180,
         "get_retweeters": 500,
         "search_tweet": 50,
         "search_user": 50,
@@ -70,10 +68,7 @@ class TwikitClient:
         "upload_media": 99999,
         "get_user_by_id": 500,
         "get_user_by_screen_name": 95,
-        "get_user_tweets_likes": 500,
-        "get_user_tweets_media": 500,
         "get_user_tweets": 50,
-        "get_user_tweets_replies": 50,
         "vote": 99999,
     }
 
@@ -96,22 +91,30 @@ class TwikitClient:
         return client
 
     @staticmethod
-    async def make_client_rate_limited_call(client, function_name, obj=None, *args, **kwargs):
+    def get_sleep_time(function_name):
         now = datetime.now()
         last_call = TwikitClient.LAST_CALL_TIMES.get(function_name, now - timedelta(seconds=TwikitClient.CALL_INTERVALS[function_name]))
         time_since_last_call = (now - last_call).total_seconds()
         sleep_time = max(0, TwikitClient.CALL_INTERVALS[function_name] - time_since_last_call)
+        return sleep_time
 
+    @staticmethod
+    async def sleep_for_rate_limit(function_name):
+        sleep_time = TwikitClient.get_sleep_time(function_name)
         if sleep_time > 0:
-            print(f"Sleeping for {sleep_time:.2f} seconds for {function_name} to respect rate limit.")
+            print(f"Sleeping for {sleep_time:.2f} seconds to respect rate limit for {function_name}.")
             await asyncio.sleep(sleep_time)
 
-        # Update the last call time
+    @staticmethod
+    def update_last_call_time(function_name):
         TwikitClient.LAST_CALL_TIMES[function_name] = datetime.now()
 
-        # Dynamically call function on client or obj
+    @staticmethod
+    async def make_client_rate_limited_call(client, function_name, obj=None, *args, **kwargs):
+        await TwikitClient.sleep_for_rate_limit(function_name)
+        TwikitClient.update_last_call_time(function_name)
+
         target = client if hasattr(client, function_name) else obj
         func = getattr(target, function_name)
         result = await func(*args, **kwargs)
         return result
-

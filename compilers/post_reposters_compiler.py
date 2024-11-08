@@ -8,16 +8,16 @@ class PostRepostersCompiler:
         reposters_data = []
 
         file_path = f"{Directories.RESULTS_DIRECTORY}{user_screen_name}_reposters.csv"
-        print("Getting likers data.")
+        print("Getting reposters data.")
 
         for post_data in user_posts_data:
-            post_reposters = await TwikitClient.make_client_rate_limited_call(client, "get_retweeters", None, post_data["Post ID"])
+            reposters = await TwikitClient.make_client_rate_limited_call(client, "get_retweeters", None, post_data["Post ID"])
 
             reposts_count = post_data["Reposts"]
             processed_reposters = 0
 
             while processed_reposters < reposts_count:
-                for reposter in post_reposters:
+                for reposter in reposters:
                     reposter_data = await PostRepostersCompiler.extract_reposters_data(post_data, reposter)
                     reposters_data.append(reposter_data)
 
@@ -33,9 +33,9 @@ class PostRepostersCompiler:
                         break
 
                 if processed_reposters < reposts_count:
-                    more_reposters = await TwikitClient.make_client_rate_limited_call(client, "get_retweeters", None, post_data["Post ID"], cursor=post_reposters.next_cursor)
+                    more_reposters = await TwikitClient.make_client_rate_limited_call(client, "get_retweeters", None, post_data["Post ID"], cursor=reposters.next_cursor)
                     if more_reposters:
-                        post_reposters = more_reposters
+                        reposters = more_reposters
                     else:
                         print(f"Ending collection of reposters data as there is no more data to collect.")
                         break
