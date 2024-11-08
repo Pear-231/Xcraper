@@ -11,20 +11,19 @@ class UserPostsTool:
         end_date = datetime.strptime(end_date_str, "%d/%m/%Y")
         file_path = f"{Directories.RESULTS_DIRECTORY}{user_screen_name}_posts.csv"
 
-        user_posts_data = await UserPostsTool.get_user_posts_data(client, user_screen_name, start_date, end_date)
-        FileProcessing.export_to_csv(file_path, user_posts_data)
+        user_posts_data = await UserPostsTool.get_user_posts_data(client, user_screen_name, start_date, end_date, file_path)
         return user_posts_data
 
     @staticmethod
-    async def get_user_posts_data(client, user_screen_name, start_date, end_date):
+    async def get_user_posts_data(client, user_screen_name, start_date, end_date, file_path):
         posts_data = []
         is_start_date_reached = False
 
         user = await TwikitClient.make_client_rate_limited_call(client, "get_user_by_screen_name", None, user_screen_name)
         twikit_posts_data = await TwikitClient.make_client_rate_limited_call(client, "get_user_tweets", None, user.id, "Tweets")
+        print(f"Collecting data between {start_date.strftime('%d/%m/%Y')} and {end_date.strftime('%d/%m/%Y')}.")
 
         while not is_start_date_reached:
-            print(f"Collecting data between {start_date.strftime('%d/%m/%Y')} and {end_date.strftime('%d/%m/%Y')}.")
             for twikit_post_data in twikit_posts_data:
                 post_date = twikit_post_data.created_at_datetime.replace(tzinfo=None)
                 if post_date <= end_date:
@@ -36,7 +35,10 @@ class UserPostsTool:
                     post_data = UserPostsTool.extract_post_data(twikit_post_data)
                     posts_data.append(post_data)
 
-                    print(f"\n==================== POST DATA FOR [{user_screen_name}_posts.csv] ====================\n")
+                    # Save file each time in case some error occurs to prevent data loss.
+                    FileProcessing.export_to_csv(file_path, posts_data)
+
+                    print(f"\n==================== Post data for user: {user_screen_name} ====================\n")
                     print(post_data)
 
             if is_start_date_reached:
@@ -53,11 +55,12 @@ class UserPostsTool:
     @staticmethod
     def extract_post_data(twikit_post_data):
         return {
-            "Published": twikit_post_data.created_at,
+            "Post Time": twikit_post_data.created_at,
             "Post URL": DataCompilerHelpers.get_post_link(twikit_post_data),
             "Post ID": twikit_post_data.id,
             "Username": twikit_post_data.user.screen_name,
             "Name": twikit_post_data.user.name,
+            "User ID": twikit_post_data.user.id,
             "Text": DataCompilerHelpers.get_post_text(twikit_post_data),
             "Text Without Links": DataCompilerHelpers.get_post_text_without_links(DataCompilerHelpers.get_post_text(twikit_post_data)),
             "Impressions": twikit_post_data.view_count,
@@ -79,5 +82,8 @@ class UserPostsTool:
             "Is Repost": DataCompilerHelpers.is_repost(twikit_post_data),
             "Media Type": DataCompilerHelpers.get_media_type(twikit_post_data),
             "Photo Count": DataCompilerHelpers.get_photo_count(twikit_post_data),
-            "Video Count": DataCompilerHelpers.get_video_count(twikit_post_data)
+            "Video Count": DataCompilerHelpers.get_video_count(twikit_post_data),
+            "Language": twikit_post_data.lang,
+            "Place": twikit_post_data.place,
+            "Has Community Notes": twikit_post_data.has_community_notes
         }

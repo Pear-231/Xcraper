@@ -93,3 +93,9 @@ class DataCompilerHelpers:
         if twikit_post_data.retweeted_tweet and not twikit_post_data.is_quote_status:
             return True
         return False
+
+    @staticmethod
+    def convert_url_from_x_to_twitter(url):
+        if "https://x.com/" in url:
+            return url.replace("https://x.com/", "https://twitter.com/")
+        return url

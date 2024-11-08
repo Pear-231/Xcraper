@@ -1,4 +1,3 @@
 class Directories:
-    COOKIES_PATH = f"/Users/georgebates/Documents/My Documents/FCDO/Xcraper/Cookies/"
-    RESULTS_DIRECTORY = f"/Users/georgebates/Documents/My Documents/FCDO/Xcraper/Posts/"
-
+    COOKIES_PATH = "C:/Path/To/Cookies/"
+    RESULTS_DIRECTORY = "C:/Path/To/Results/"
