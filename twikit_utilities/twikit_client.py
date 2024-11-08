@@ -1,4 +1,8 @@
 import asyncio
+import os
+from twikit import Client
+from core.directories import Directories
+from core.credentials import USERNAME, EMAIL, PASSWORD
 from datetime import datetime, timedelta
 
 class TwikitClient:
@@ -77,6 +81,21 @@ class TwikitClient:
     LAST_CALL_TIMES = {}
 
     @staticmethod
+    async def initialise_client():
+        cookies_file = f"{Directories.COOKIES_PATH}{USERNAME}_cookies.json"
+        client = Client("en-UK")
+        if not os.path.exists(cookies_file):
+            await client.login(
+                auth_info_1=USERNAME,
+                auth_info_2=EMAIL,
+                password=PASSWORD
+            )
+            client.save_cookies(cookies_file)
+        else:
+            client.load_cookies(path=cookies_file)
+        return client
+
+    @staticmethod
     async def make_client_rate_limited_call(client, function_name, obj=None, *args, **kwargs):
         now = datetime.now()
         last_call = TwikitClient.LAST_CALL_TIMES.get(function_name, now - timedelta(seconds=TwikitClient.CALL_INTERVALS[function_name]))
@@ -95,3 +114,4 @@ class TwikitClient:
         func = getattr(target, function_name)
         result = await func(*args, **kwargs)
         return result
+

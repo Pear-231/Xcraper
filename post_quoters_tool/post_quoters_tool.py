@@ -5,14 +5,10 @@ from twikit_utilities.twikit_client import TwikitClient
 
 class PostQuotersTool:
     @staticmethod
-    async  def compile_quoters_data(client, user_posts_data, user_screen_name):
-        file_path = f"{Directories.RESULTS_DIRECTORY}{user_screen_name}_quoters.csv"
-        quoters_data = await PostQuotersTool.get_quoters_data(client, user_posts_data, file_path)
-        return quoters_data
-
-    @staticmethod
-    async def get_quoters_data(client, user_posts_data, file_path):
+    async def compile_quoters_data(client, user_posts_data, user_screen_name):
         quoters_data = []
+
+        file_path = f"{Directories.RESULTS_DIRECTORY}{user_screen_name}_quoters.csv"
         print("Getting quoters data.")
 
         for post_data in user_posts_data:

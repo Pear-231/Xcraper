@@ -7,17 +7,12 @@ from twikit_utilities.twikit_client import TwikitClient
 class UserPostsTool:
     @staticmethod
     async def compile_user_posts_data(client, user_screen_name, start_date_str, end_date_str):
+        posts_data = []
+        is_start_date_reached = False
+
         start_date = datetime.strptime(start_date_str, "%d/%m/%Y")
         end_date = datetime.strptime(end_date_str, "%d/%m/%Y")
         file_path = f"{Directories.RESULTS_DIRECTORY}{user_screen_name}_posts.csv"
-
-        user_posts_data = await UserPostsTool.get_user_posts_data(client, user_screen_name, start_date, end_date, file_path)
-        return user_posts_data
-
-    @staticmethod
-    async def get_user_posts_data(client, user_screen_name, start_date, end_date, file_path):
-        posts_data = []
-        is_start_date_reached = False
 
         user = await TwikitClient.make_client_rate_limited_call(client, "get_user_by_screen_name", None, user_screen_name)
         twikit_posts_data = await TwikitClient.make_client_rate_limited_call(client, "get_user_tweets", None, user.id, "Tweets")

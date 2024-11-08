@@ -4,16 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c21c2a0e-fa6d-4585-84ad-64c6a8299178" name="Changes" comment="Initial commit.">
-      <change afterPath="$PROJECT_DIR$/post_quoters_tool/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/post_quoters_tool/post_quoters_tool.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Xcraper.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Xcraper.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+    <list default="true" id="c21c2a0e-fa6d-4585-84ad-64c6a8299178" name="Changes" comment="Change Notes:&#10;- Added post_quoters_tool.&#10;- Some minor improvements to other tools.">
+      <change afterPath="$PROJECT_DIR$/post_repliers_tool/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post_repliers_tool/post_replies_compiler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/credentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/credentials.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/directories.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/directories.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utilities/data_compiler_helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utilities/data_compiler_helpers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_quoters_tool/post_quoters_tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/post_quoters_tool/post_quoters_tool.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/post_reposters_tool/post_reposters_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/post_reposters_tool/post_reposters_compiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/twikit_utilities/twikit_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/twikit_utilities/twikit_client.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user_posts_tool/user_posts_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_posts_tool/user_posts_compiler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,12 +37,12 @@
     &quot;assignee&quot;: &quot;Pear-231&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Pear-231/Xcraper.git&quot;,
-    &quot;accountId&quot;: &quot;5c40a4c2-7e44-40c4-af64-94efbdd8a866&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Pear-231/Xcraper.git",
+    "accountId": "b5a368ce-d244-4ead-99aa-09691db85f81"
   }
-}</component>
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -140,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731003701302</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Change Notes:&#10;- Added post_quoters_tool.&#10;- Some minor improvements to other tools.">
+      <option name="closed" value="true" />
+      <created>1731070435159</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1731070435159</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -156,18 +164,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit." />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit." />
+    <MESSAGE value="Change Notes:&#10;- Added post_quoters_tool.&#10;- Some minor improvements to other tools." />
+    <option name="LAST_COMMIT_MESSAGE" value="Change Notes:&#10;- Added post_quoters_tool.&#10;- Some minor improvements to other tools." />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/user_posts_tool/user_posts_compiler.py</url>
-          <line>35</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="post_data" />

@@ -4,14 +4,10 @@ from twikit_utilities.twikit_client import TwikitClient
 
 class PostRepostersTool:
     @staticmethod
-    async  def compile_reposters_data(client, user_posts_data, user_screen_name):
-        file_path = f"{Directories.RESULTS_DIRECTORY}{user_screen_name}_reposters.csv"
-        reposters_data = await PostRepostersTool.get_reposters_data(client, user_posts_data, file_path)
-        return reposters_data
-
-    @staticmethod
-    async def get_reposters_data(client, user_posts_data, file_path):
+    async def compile_reposters_data(client, user_posts_data, user_screen_name):
         reposters_data = []
+
+        file_path = f"{Directories.RESULTS_DIRECTORY}{user_screen_name}_reposters.csv"
         print("Getting likers data.")
 
         for post_data in user_posts_data:
