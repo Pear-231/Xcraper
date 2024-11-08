@@ -1,9 +1,5 @@
 import asyncio
-import os
-from twikit import Client
 from datetime import datetime, timedelta
-from core.credentials import USERNAME, EMAIL, PASSWORD
-from core.directories import Directories
 
 class TwikitClient:
     # https://github.com/d60/twikit/blob/main/ratelimits.md
@@ -80,41 +76,22 @@ class TwikitClient:
     CALL_INTERVALS = {func: (15 * 60) / (limit - 1) for func, limit in RATE_LIMITS.items()}
     LAST_CALL_TIMES = {}
 
-    def __init__(self, locale='en-UK'):
-        self.client = Client(locale)
-        self.CALL_INTERVALS = {func: (15 * 60) / (limit - 1) for func, limit in self.RATE_LIMITS.items()}
-        self.LAST_CALL_TIMES = {}
-
-    async def initialise_client(self):
-        cookies_file = f"{Directories.COOKIES_PATH}{USERNAME}_cookies.json"
-        if not os.path.exists(cookies_file):
-            await self.client.login(
-                auth_info_1=USERNAME,
-                auth_info_2=EMAIL,
-                password=PASSWORD
-            )
-            self.client.save_cookies(cookies_file)
-        else:
-            self.client.load_cookies(path=cookies_file)
-
-    async def make_rate_limited_call(self, function_name, *args, **kwargs):
+    @staticmethod
+    async def make_client_rate_limited_call(client, function_name, obj=None, *args, **kwargs):
         now = datetime.now()
-        last_call = self.LAST_CALL_TIMES.get(function_name, now - timedelta(seconds=self.CALL_INTERVALS[function_name]))
+        last_call = TwikitClient.LAST_CALL_TIMES.get(function_name, now - timedelta(seconds=TwikitClient.CALL_INTERVALS[function_name]))
         time_since_last_call = (now - last_call).total_seconds()
-        sleep_time = max(0, self.CALL_INTERVALS[function_name] - time_since_last_call)
+        sleep_time = max(0, TwikitClient.CALL_INTERVALS[function_name] - time_since_last_call)
 
         if sleep_time > 0:
             print(f"Sleeping for {sleep_time:.2f} seconds for {function_name} to respect rate limit.")
             await asyncio.sleep(sleep_time)
 
-        self.LAST_CALL_TIMES[function_name] = datetime.now()
-        try:
-            method = getattr(self.client, function_name)
-            result = await method(*args, **kwargs)
-            return result
-        except AttributeError:
-            print(f"Function '{function_name}' not found in client.")
-            return None
-        except Exception as e:
-            print(f"An error occurred in {function_name}: {e}")
-            return None
+        # Update the last call time
+        TwikitClient.LAST_CALL_TIMES[function_name] = datetime.now()
+
+        # Dynamically call function on client or obj
+        target = client if hasattr(client, function_name) else obj
+        func = getattr(target, function_name)
+        result = await func(*args, **kwargs)
+        return result

@@ -5,14 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c21c2a0e-fa6d-4585-84ad-64c6a8299178" name="Changes" comment="Initial commit.">
+      <change afterPath="$PROJECT_DIR$/post_reposters_tool/post_reposters_compiler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/credentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/credentials.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/directories.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/directories.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utilities/date_converter.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/twikit_utilities/twikit_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/twikit_utilities/twikit_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_posts_tool/user_posts_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_posts_tool/user_posts_compiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wip/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/post_reposters_tool/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wip/stuff.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -48,6 +61,11 @@
     "settings.editor.splitter.proportion": "0.41955194"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/post_likers_tool" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Xcraper" />
@@ -97,7 +115,23 @@
       <option name="project" value="LOCAL" />
       <updated>1731003538860</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Initial commit.">
+      <option name="closed" value="true" />
+      <created>1731003599382</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731003599382</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Initial commit.">
+      <option name="closed" value="true" />
+      <created>1731003701302</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731003701302</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

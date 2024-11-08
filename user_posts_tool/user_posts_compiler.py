@@ -5,49 +5,44 @@ from core.utilities.file_processing import FileProcessing
 from twikit_utilities.twikit_client import TwikitClient
 
 class UserPostsTool:
-    def __init__(self, user_screen_name, start_date_str, end_date_str):
-        self.user_screen_name = user_screen_name
-        self.start_date = datetime.strptime(start_date_str, "%d/%m/%Y")
-        self.end_date = datetime.strptime(end_date_str, "%d/%m/%Y")
-        self.file_path = f"{Directories.POSTS_DIRECTORY}{user_screen_name}_posts.csv"
-        self.twikit_client = TwikitClient()
+    @staticmethod
+    async def compile_user_posts_data(client, user_screen_name, start_date_str, end_date_str):
+        start_date = datetime.strptime(start_date_str, "%d/%m/%Y")
+        end_date = datetime.strptime(end_date_str, "%d/%m/%Y")
+        file_path = f"{Directories.RESULTS_DIRECTORY}{user_screen_name}_posts.csv"
 
-    async def compile_user_posts_data(self):
-        await self.twikit_client.initialise_client()
-        user_posts_data = await self.get_user_posts_data()
-        FileProcessing.export_to_csv(self.file_path, user_posts_data)
+        user_posts_data = await UserPostsTool.get_user_posts_data(client, user_screen_name, start_date, end_date)
+        FileProcessing.export_to_csv(file_path, user_posts_data)
         return user_posts_data
 
-    async def get_user_posts_data(self):
+    @staticmethod
+    async def get_user_posts_data(client, user_screen_name, start_date, end_date):
         posts_data = []
         is_start_date_reached = False
 
-        user = await self.twikit_client.make_rate_limited_call("get_user_by_screen_name", self.user_screen_name)
-        twikit_posts_data = await self.twikit_client.make_rate_limited_call("get_user_tweets", user.id, "Tweets")
+        user = await TwikitClient.make_client_rate_limited_call(client, "get_user_by_screen_name", None, user_screen_name)
+        twikit_posts_data = await TwikitClient.make_client_rate_limited_call(client, "get_user_tweets", None, user.id, "Tweets")
 
         while not is_start_date_reached:
-            print(f"Collecting data between {self.start_date.strftime('%d/%m/%Y')} and {self.end_date.strftime('%d/%m/%Y')}.")
+            print(f"Collecting data between {start_date.strftime('%d/%m/%Y')} and {end_date.strftime('%d/%m/%Y')}.")
             for twikit_post_data in twikit_posts_data:
                 post_date = twikit_post_data.created_at_datetime.replace(tzinfo=None)
-                if post_date <= self.end_date:
-                    if post_date <= self.start_date:
+                if post_date <= end_date:
+                    if post_date <= start_date:
                         print("Start date reached. Ending post data collection.")
                         is_start_date_reached = True
                         break
 
-                    post_data = self.extract_post_data(twikit_post_data)
+                    post_data = UserPostsTool.extract_post_data(twikit_post_data)
                     posts_data.append(post_data)
 
-                    print(f"\n==================== POST DATA FOR [{self.user_screen_name}_posts.csv] ====================\n")
+                    print(f"\n==================== POST DATA FOR [{user_screen_name}_posts.csv] ====================\n")
                     print(post_data)
 
             if is_start_date_reached:
                 break
 
-            # Collect the next batch of posts
-            more_tweets = await self.twikit_client.make_rate_limited_call(
-                "get_user_tweets", user.id, "Tweets", cursor=twikit_posts_data.next_cursor
-            )
+            more_tweets = await TwikitClient.make_client_rate_limited_call(client,"get_user_tweets", None, user.id, "Tweets", cursor=twikit_posts_data.next_cursor)
             if more_tweets:
                 twikit_posts_data = more_tweets
             else:
@@ -55,11 +50,12 @@ class UserPostsTool:
 
         return posts_data
 
-    def extract_post_data(self, twikit_post_data):
-        """Extracts and formats a post's data into a dictionary."""
+    @staticmethod
+    def extract_post_data(twikit_post_data):
         return {
             "Published": twikit_post_data.created_at,
-            "Post_URL": DataCompilerHelpers.get_post_link(twikit_post_data),
+            "Post URL": DataCompilerHelpers.get_post_link(twikit_post_data),
+            "Post ID": twikit_post_data.id,
             "Username": twikit_post_data.user.screen_name,
             "Name": twikit_post_data.user.name,
             "Text": DataCompilerHelpers.get_post_text(twikit_post_data),
