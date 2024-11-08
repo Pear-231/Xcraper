@@ -4,7 +4,7 @@ from core.utilities.data_compiler_helpers import DataCompilerHelpers
 from core.utilities.file_processing import FileProcessing
 from twikit_utilities.twikit_client import TwikitClient
 
-class UserPostsTool:
+class UserPostsCompiler:
     @staticmethod
     async def compile_user_posts_data(client, user_screen_name, start_date_str, end_date_str):
         posts_data = []
@@ -27,7 +27,7 @@ class UserPostsTool:
                         is_start_date_reached = True
                         break
 
-                    post_data = UserPostsTool.extract_post_data(twikit_post_data)
+                    post_data = UserPostsCompiler.extract_post_data(twikit_post_data)
                     posts_data.append(post_data)
 
                     # Save file each time in case some error occurs to prevent data loss.

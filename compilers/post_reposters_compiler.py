@@ -2,7 +2,7 @@ from core.directories import Directories
 from core.utilities.file_processing import FileProcessing
 from twikit_utilities.twikit_client import TwikitClient
 
-class PostRepostersTool:
+class PostRepostersCompiler:
     @staticmethod
     async def compile_reposters_data(client, user_posts_data, user_screen_name):
         reposters_data = []
@@ -18,7 +18,7 @@ class PostRepostersTool:
 
             while processed_reposters < reposts_count:
                 for reposter in post_reposters:
-                    reposter_data = await PostRepostersTool.extract_reposters_data(post_data, reposter)
+                    reposter_data = await PostRepostersCompiler.extract_reposters_data(post_data, reposter)
                     reposters_data.append(reposter_data)
 
                     # Save file each time in case some error occurs to prevent data loss.

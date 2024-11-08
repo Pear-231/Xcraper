@@ -3,7 +3,7 @@ from core.utilities.data_compiler_helpers import DataCompilerHelpers
 from core.utilities.file_processing import FileProcessing
 from twikit_utilities.twikit_client import TwikitClient
 
-class PostQuotersTool:
+class PostQuotersCompiler:
     @staticmethod
     async def compile_quoters_data(client, user_posts_data, user_screen_name):
         quoters_data = []
@@ -20,7 +20,7 @@ class PostQuotersTool:
 
             while processed_quoters < quotes_count:
                 for quote_post in post_quoters_data:
-                    quote_post_data = await PostQuotersTool.extract_quoters_data(post_data, quote_post)
+                    quote_post_data = await PostQuotersCompiler.extract_quoters_data(post_data, quote_post)
                     quoters_data.append(quote_post_data)
 
                     # Save file each time in case some error occurs to prevent data loss.
