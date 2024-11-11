@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c21c2a0e-fa6d-4585-84ad-64c6a8299178" name="Changes" comment="Change Notes:&#10;- Added post_replies_compiler.&#10;- Refactored sleeping into individual methods.&#10;- Renaming.">
+    <list default="true" id="c21c2a0e-fa6d-4585-84ad-64c6a8299178" name="Changes" comment="Change Notes:&#10;- Added processing from files capability in case of errors causing processing to stop mid-way.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compilers/post_quotes_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/compilers/post_quotes_compiler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compilers/post_replies_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/compilers/post_replies_compiler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compilers/post_reposters_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/compilers/post_reposters_compiler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/credentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/credentials.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/directories.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/directories.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/utilities/data_compiler_helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utilities/data_compiler_helpers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/twikit_utilities/twikit_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/twikit_utilities/twikit_client.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,12 +36,12 @@
     &quot;assignee&quot;: &quot;Pear-231&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Pear-231/Xcraper.git",
-    "accountId": "b5a368ce-d244-4ead-99aa-09691db85f81"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Pear-231/Xcraper.git&quot;,
+    &quot;accountId&quot;: &quot;b5a368ce-d244-4ead-99aa-09691db85f81&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -52,17 +54,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/George Bates/Documents/GitHub/Xcraper",
-    "settings.editor.selected.configurable": "editor.preferences.pyOptions",
-    "settings.editor.splitter.proportion": "0.41955194"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/George Bates/Documents/GitHub/Xcraper&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.General&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.41955194&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\George Bates\Documents\GitHub\Xcraper\compilers" />
@@ -170,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731087322161</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Change Notes:&#10;- Added processing from files capability in case of errors causing processing to stop mid-way.">
+      <option name="closed" value="true" />
+      <created>1731106638702</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1731106638702</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -190,14 +200,18 @@
     <MESSAGE value="Change Notes:&#10;- Moved client initialisation.&#10;- Small refactoring of tools for simplicity." />
     <MESSAGE value="Change Notes:&#10;- Reorganisation." />
     <MESSAGE value="Change Notes:&#10;- Added post_replies_compiler.&#10;- Refactored sleeping into individual methods.&#10;- Renaming." />
-    <option name="LAST_COMMIT_MESSAGE" value="Change Notes:&#10;- Added post_replies_compiler.&#10;- Refactored sleeping into individual methods.&#10;- Renaming." />
+    <MESSAGE value="Change Notes:&#10;- Added processing from files capability in case of errors causing processing to stop mid-way." />
+    <option name="LAST_COMMIT_MESSAGE" value="Change Notes:&#10;- Added processing from files capability in case of errors causing processing to stop mid-way." />
   </component>
   <component name="XDebuggerManager">
-    <watches-manager>
-      <configuration name="PythonConfigurationType">
-        <watch expression="post_data" />
-        <watch expression="replies" />
-      </configuration>
-    </watches-manager>
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/compilers/post_quotes_compiler.py</url>
+          <line>41</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
