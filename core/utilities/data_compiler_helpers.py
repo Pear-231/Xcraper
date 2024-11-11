@@ -66,11 +66,11 @@ class DataCompilerHelpers:
 
     @staticmethod
     def get_media_type(twikit_post_data):
-        media_types = ["photo", "video"]
+        media_types = ["photo", "video", "animated_gif"]
         post_media_type = ""
 
         if DataCompilerHelpers.get_post_text(twikit_post_data) is not None:
-            post_media_type += "Text"
+            post_media_type += "text"
 
         if twikit_post_data.media:
             for media in twikit_post_data.media:
@@ -78,12 +78,11 @@ class DataCompilerHelpers:
                 if media_type in media_types:
                     if post_media_type:
                         post_media_type += ", "
-                    post_media_type += media_type.capitalize()
+                    post_media_type += media_type
                 else:
                     if post_media_type:
                         post_media_type += ", "
-                    post_media_type += "Unknown"
-                    print("Error: Unknown media type.")
+                    post_media_type += "unknown"
                     break
 
         return post_media_type
@@ -93,9 +92,3 @@ class DataCompilerHelpers:
         if twikit_post_data.retweeted_tweet and not twikit_post_data.is_quote_status:
             return True
         return False
-
-    @staticmethod
-    def convert_url_from_x_to_twitter(url):
-        if "https://x.com/" in url:
-            return url.replace("https://x.com/", "https://twitter.com/")
-        return url

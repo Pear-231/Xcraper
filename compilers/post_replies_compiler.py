@@ -1,3 +1,4 @@
+import os
 from core.directories import Directories
 from core.utilities.data_compiler_helpers import DataCompilerHelpers
 from core.utilities.file_processing import FileProcessing
@@ -11,8 +12,10 @@ class PostRepliesCompiler:
 
         last_processed_post_url = None
         is_processing_allowed = False
+        # Define this here to prevent it being updated after the file is created later in the process.
+        does_replies_file_exist = os.path.exists(replies_file)
 
-        if replies_file is not None:
+        if does_replies_file_exist:
             replies_data = FileProcessing.import_from_csv(replies_file)
             last_processed_post_url = replies_data[-1]["Replying to Post URL"]
             replies_data = [reply for reply in replies_data if reply["Replying to Post URL"] != last_processed_post_url]
@@ -23,9 +26,10 @@ class PostRepliesCompiler:
         for post_data in user_posts_data:
             post_url = post_data["Post URL"]
 
-            if replies_file is not None and is_processing_allowed == False:
+            if does_replies_file_exist and is_processing_allowed == False:
                 if post_url == last_processed_post_url:
                     is_processing_allowed = True
+                    print("Processing replies data from file.")
                 else:
                     continue
 

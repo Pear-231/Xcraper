@@ -1,3 +1,4 @@
+import os
 from core.directories import Directories
 from core.utilities.file_processing import FileProcessing
 from twikit_utilities.twikit_client import TwikitClient
@@ -9,8 +10,10 @@ class PostRepostersCompiler:
 
         last_processed_post_url = None
         is_processing_allowed = False
+        # Define this here to prevent it being updated after the file is created later in the process.
+        does_reposters_file_exist = os.path.exists(reposters_file)
 
-        if reposters_file is not None:
+        if does_reposters_file_exist:
             reposters_data = FileProcessing.import_from_csv(reposters_file)
             last_processed_post_url = reposters_data[-1]["Reposted Post URL"]
             reposters_data = [reposter for reposter in reposters_data if reposter["Reposted Post URL"] != last_processed_post_url]
@@ -21,9 +24,10 @@ class PostRepostersCompiler:
         for post_data in user_posts_data:
             post_url = post_data["Post URL"]
 
-            if reposters_file is not None and is_processing_allowed == False:
+            if does_reposters_file_exist and is_processing_allowed == False:
                 if post_url == last_processed_post_url:
                     is_processing_allowed = True
+                    print("Processing reposters data from file.")
                 else:
                     continue
 
@@ -62,7 +66,7 @@ class PostRepostersCompiler:
     async def extract_reposters_data(post_data, reposter):
         return {
             "Reposted Post URL": post_data["Post URL"],
-            "Repost Time": reposter.created_at,
+            "Account Created At": reposter.created_at,
             "Name": reposter.name,
             "Screen Name": reposter.screen_name,
             "User ID": reposter.id,

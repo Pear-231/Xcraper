@@ -1,4 +1,4 @@
-from pathlib import Path
+import os
 from core.directories import Directories
 from core.utilities.data_compiler_helpers import DataCompilerHelpers
 from core.utilities.file_processing import FileProcessing
@@ -11,29 +11,35 @@ class PostQuotesCompiler:
 
         last_processed_post_url = None
         is_processing_allowed = False
+        # Define this here to prevent it being updated after the file is created later in the process.
+        does_quotes_file_exist = os.path.exists(quotes_file)
 
-        if quotes_file is not None:
+        if does_quotes_file_exist:
             quotes_data = FileProcessing.import_from_csv(quotes_file)
             last_processed_post_url = quotes_data[-1]["Quoting Post URL"]
             quotes_data = [quote for quote in quotes_data if quote["Quoting Post URL"] != last_processed_post_url]
 
-        file_path = quotes_file or f"{Directories.RESULTS_DIRECTORY}{user_screen_name}_quoters.csv"
+        file_path = quotes_file or f"{Directories.RESULTS_DIRECTORY}{user_screen_name}_quotes.csv"
         print("Getting quotes data.")
 
         for post_data in user_posts_data:
             post_url = post_data["Post URL"]
 
-            if quotes_file is not None and is_processing_allowed == False:
+            if does_quotes_file_exist and is_processing_allowed == False:
                 if post_url == last_processed_post_url:
                     is_processing_allowed = True
+                    print("Processing quotes data from file.")
                 else:
                     continue
 
-            query_post_url = DataCompilerHelpers.convert_url_from_x_to_twitter(post_data["Post URL"])
+            query_post_url = f"{user_screen_name}/Status/{post_data["Post ID"]}"
             quotes = await TwikitClient.make_client_rate_limited_call(client, "search_tweet", None, query_post_url, "Top")
 
             quotes_count = post_data["Quote Reposts"]
             processed_quotes = 0
+
+            if quotes == [] and quotes_count >= 1:
+                print("Error: Quotes is empty despite quotes_count being non-zero.")
 
             while processed_quotes < quotes_count:
                 for quote in quotes:

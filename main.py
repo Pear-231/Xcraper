@@ -15,12 +15,12 @@ async def main():
 
     # Specify the file paths if they already exist to continue processing from the most recent post in those files.
     # This is to accommodate any errors / connection issues causing processing to stop.
-    user_posts_file = None #"C:/Path/To/posts.csv"
-    quotes_file = None #"C:/Path/To/quotes.csv"
-    reposters_file = None #"C:/Path/To/reposters.csv"
-    replies_file = None #"C:/Path/To/replies.csv"
+    user_posts_file = "C:/Path/To/posts.csv"
+    quotes_file = "C:/Path/To/quotes.csv"
+    reposters_file = "C:/Path/To/reposters.csv"
+    replies_file = "C:/Path/To/replies.csv"
 
-    if user_posts_file:
+    if os.path.exists(user_posts_file):
         user_posts_data = FileProcessing.import_from_csv(user_posts_file)
     else:
         user_posts_data = await UserPostsCompiler.compile_user_posts_data(client, screen_name, start_date, end_date)
