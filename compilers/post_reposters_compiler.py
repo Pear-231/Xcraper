@@ -33,12 +33,11 @@ class PostRepostersCompiler:
 
             reposters = await TwikitClient.make_client_rate_limited_call(client, "get_retweeters", None, post_data["Post ID"])
 
-            reposts_count = post_data["Reposts"]
             processed_reposters = 0
 
-            while processed_reposters < reposts_count:
+            while reposters:
                 for reposter in reposters:
-                    reposter_data = await PostRepostersCompiler.extract_reposters_data(post_data, reposter)
+                    reposter_data = PostRepostersCompiler.extract_reposters_data(post_data, reposter)
                     reposters_data.append(reposter_data)
 
                     # Save file each time in case some error occurs to prevent data loss.
@@ -48,22 +47,18 @@ class PostRepostersCompiler:
                     print(reposter_data)
 
                     processed_reposters += 1
-                    if processed_reposters >= reposts_count:
-                        print(f"Ending collection of reposters data due to meeting to reposts_count.")
-                        break
 
-                if processed_reposters < reposts_count:
-                    more_reposters = await TwikitClient.make_client_rate_limited_call(client, "get_retweeters", None, post_data["Post ID"], cursor=reposters.next_cursor)
-                    if more_reposters:
-                        reposters = more_reposters
-                    else:
-                        print(f"Ending collection of reposters data as there is no more data to collect.")
-                        break
+                more_reposters = await TwikitClient.make_client_rate_limited_call(client, "get_retweeters", None, post_data["Post ID"], cursor=reposters.next_cursor)
+                if more_reposters:
+                    reposters = more_reposters
+                else:
+                    print(f"Ending collection of reposters data as there is no more data to collect.")
+                    break
 
         return reposters_data
 
     @staticmethod
-    async def extract_reposters_data(post_data, reposter):
+    def extract_reposters_data(post_data, reposter):
         return {
             "Reposted Post URL": post_data["Post URL"],
             "Account Created At": reposter.created_at,

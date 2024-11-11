@@ -37,12 +37,11 @@ class PostRepliesCompiler:
             post = await TwikitClient.make_client_rate_limited_call(client, "get_tweet_by_id", None, tweet_id)
             replies = post.replies
 
-            replies_count = post_data["Replies"]
             processed_replies = 0
 
-            while processed_replies < replies_count:
+            while replies:
                 for reply in replies:
-                    reply_data = await PostRepliesCompiler.extract_replies_data(post_data, reply)
+                    reply_data = PostRepliesCompiler.extract_replies_data(post_data, reply)
                     replies_data.append(reply_data)
 
                     # Save file each time in case some error occurs to prevent data loss.
@@ -52,9 +51,6 @@ class PostRepliesCompiler:
                     print(reply_data)
 
                     processed_replies += 1
-                    if processed_replies >= replies_count:
-                        print(f"Ending collection of replies data due to meeting to replies_count.")
-                        break
 
                 replies_cursor[tweet_id] = replies.next_cursor
                 if not replies.next_cursor:
@@ -64,10 +60,16 @@ class PostRepliesCompiler:
                 await TwikitClient.sleep_for_rate_limit("get_tweet_by_id")
                 TwikitClient.update_last_call_time("get_tweet_by_id")
 
-                replies = await replies.next()
+                more_replies = await replies.next()
+                if more_replies:
+                    replies = more_replies
+                else:
+                    print("Ending collection of replies data as there is no more data to collect.")
+                    break
+
 
     @staticmethod
-    async def extract_replies_data(post_data, reply):
+    def extract_replies_data(post_data, reply):
         return {
             "Replying to Post URL": post_data["Post URL"],
             "Replying to Username": post_data["Username"],

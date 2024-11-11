@@ -42,7 +42,7 @@ class PostQuotesCompiler:
 
             while quotes:
                 for quote in quotes:
-                    quote_data = await PostQuotesCompiler.extract_quotes_data(post_data, quote)
+                    quote_data = PostQuotesCompiler.extract_quotes_data(post_data, quote)
                     quotes_data.append(quote_data)
 
                     FileProcessing.export_to_csv(file_path, quotes_data)
@@ -62,7 +62,7 @@ class PostQuotesCompiler:
         return quotes_data
 
     @staticmethod
-    async def extract_quotes_data(post_data, quote):
+    def extract_quotes_data(post_data, quote):
         return {
             "Quoting Post URL": post_data["Post URL"],
             "Quoting Username": post_data["Username"],
