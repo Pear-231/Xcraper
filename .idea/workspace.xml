@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c21c2a0e-fa6d-4585-84ad-64c6a8299178" name="Changes" comment="Change Notes:&#10;- Added processing from files capability in case of errors causing processing to stop mid-way.">
+    <list default="true" id="c21c2a0e-fa6d-4585-84ad-64c6a8299178" name="Changes" comment="Change Notes:&#10;- Improved collection of replies and reposters.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compilers/post_quotes_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/compilers/post_quotes_compiler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compilers/post_replies_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/compilers/post_replies_compiler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compilers/post_reposters_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/compilers/post_reposters_compiler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/credentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/credentials.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/directories.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/directories.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/utilities/data_compiler_helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utilities/data_compiler_helpers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/twikit_utilities/twikit_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/twikit_utilities/twikit_client.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +175,47 @@
       <option name="project" value="LOCAL" />
       <updated>1731106638702</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Change Notes:&#10;- Minor improvements.">
+      <option name="closed" value="true" />
+      <created>1731344925423</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1731344925423</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Change Notes:&#10;- Minor improvements.">
+      <option name="closed" value="true" />
+      <created>1731344944026</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1731344944026</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Change Notes:&#10;- Whoops.">
+      <option name="closed" value="true" />
+      <created>1731345261342</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1731345261342</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Change Notes:&#10;- Improved collection of quotes.">
+      <option name="closed" value="true" />
+      <created>1731352261586</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1731352261586</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Change Notes:&#10;- Improved collection of replies and reposters.">
+      <option name="closed" value="true" />
+      <created>1731352775904</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1731352775904</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -201,17 +236,10 @@
     <MESSAGE value="Change Notes:&#10;- Reorganisation." />
     <MESSAGE value="Change Notes:&#10;- Added post_replies_compiler.&#10;- Refactored sleeping into individual methods.&#10;- Renaming." />
     <MESSAGE value="Change Notes:&#10;- Added processing from files capability in case of errors causing processing to stop mid-way." />
-    <option name="LAST_COMMIT_MESSAGE" value="Change Notes:&#10;- Added processing from files capability in case of errors causing processing to stop mid-way." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/compilers/post_quotes_compiler.py</url>
-          <line>41</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Change Notes:&#10;- Minor improvements." />
+    <MESSAGE value="Change Notes:&#10;- Whoops." />
+    <MESSAGE value="Change Notes:&#10;- Improved collection of quotes." />
+    <MESSAGE value="Change Notes:&#10;- Improved collection of replies and reposters." />
+    <option name="LAST_COMMIT_MESSAGE" value="Change Notes:&#10;- Improved collection of replies and reposters." />
   </component>
 </project>

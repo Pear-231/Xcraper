@@ -42,15 +42,16 @@ class PostQuotesCompiler:
 
             while quotes:
                 for quote in quotes:
-                    quote_data = PostQuotesCompiler.extract_quotes_data(post_data, quote)
-                    quotes_data.append(quote_data)
+                    if post_data["Post URL"] != DataCompilerHelpers.get_post_link(quote):
+                        quote_data = PostQuotesCompiler.extract_quotes_data(post_data, quote)
+                        quotes_data.append(quote_data)
 
-                    FileProcessing.export_to_csv(file_path, quotes_data)
+                        FileProcessing.export_to_csv(file_path, quotes_data)
 
-                    print(f"\n==================== Quote post data for url: {post_data['Post URL']} from user: {post_data['Username']} ====================\n")
-                    print(quote_data)
+                        print(f"\n==================== Quote post data for url: {post_data['Post URL']} from user: {post_data['Username']} ====================\n")
+                        print(quote_data)
 
-                    processed_quotes += 1
+                        processed_quotes += 1
 
                 more_quoters = await TwikitClient.make_client_rate_limited_call(client, "search_tweet", None, query_post_url, "Top", cursor=quotes.next_cursor)
                 if more_quoters:
