@@ -35,35 +35,29 @@ class PostQuotesCompiler:
             query_post_url = f"{user_screen_name}/Status/{post_data["Post ID"]}"
             quotes = await TwikitClient.make_client_rate_limited_call(client, "search_tweet", None, query_post_url, "Top")
 
-            quotes_count = post_data["Quote Reposts"]
             processed_quotes = 0
 
-            if quotes == [] and quotes_count >= 1:
-                print("Error: Quotes is empty despite quotes_count being non-zero.")
+            if quotes == []:
+                print("No quotes found for this post.")
 
-            while processed_quotes < quotes_count:
+            while quotes:
                 for quote in quotes:
                     quote_data = await PostQuotesCompiler.extract_quotes_data(post_data, quote)
                     quotes_data.append(quote_data)
 
-                    # Save file each time in case some error occurs to prevent data loss.
                     FileProcessing.export_to_csv(file_path, quotes_data)
 
-                    print(f"\n==================== Quote post data for url: {post_data['Post URL']} from user: {post_data["Username"]} ====================\n")
+                    print(f"\n==================== Quote post data for url: {post_data['Post URL']} from user: {post_data['Username']} ====================\n")
                     print(quote_data)
 
                     processed_quotes += 1
-                    if processed_quotes >= quotes_count:
-                        print(f"Ending collection of quote post data due to meeting to quotes_count.")
-                        break
 
-                if processed_quotes < quotes_count:
-                    more_quoters = await TwikitClient.make_client_rate_limited_call(client, "search_tweet", None, query_post_url, "Top", cursor=quotes.next_cursor)
-                    if more_quoters:
-                        quotes = more_quoters
-                    else:
-                        print(f"Ending collection of quote post data as there is no more data to collect.")
-                        break
+                more_quoters = await TwikitClient.make_client_rate_limited_call(client, "search_tweet", None, query_post_url, "Top", cursor=quotes.next_cursor)
+                if more_quoters:
+                    quotes = more_quoters
+                else:
+                    print("Ending collection of quote post data as there is no more data to collect.")
+                    break
 
         return quotes_data
 
