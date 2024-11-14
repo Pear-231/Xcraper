@@ -37,8 +37,9 @@ class PostQuotesCompiler:
 
             processed_quotes = 0
 
-            if quotes == []:
+            if not quotes:
                 print("No quotes found for this post.")
+                continue
 
             while quotes:
                 for quote in quotes:

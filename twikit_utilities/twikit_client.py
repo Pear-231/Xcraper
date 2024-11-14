@@ -55,7 +55,7 @@ class TwikitClient:
         "mute_user": 187,
         "get_notifications": 180,
         "get_retweeters": 500,
-        "search_tweet": 40, # Reduced to 40 due to frequent suspension of accounts at suggested rate limit of 50.
+        "search_tweet": 50,
         "search_user": 50,
         "send_dm": 187,
         "user_id": 99999,
@@ -82,7 +82,7 @@ class TwikitClient:
         # user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
         # user_agent="Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion"
         # user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0"
-        client = Client("en-GB", user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36")
+        client = Client("en-US", user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0")
         if not os.path.exists(cookies_file):
             await client.login(
                 auth_info_1=USERNAME,

@@ -5,6 +5,7 @@ from compilers.post_quotes_compiler import PostQuotesCompiler
 from compilers.post_reposters_compiler import PostRepostersCompiler
 from compilers.post_replies_compiler import PostRepliesCompiler
 from core.utilities.file_processing import FileProcessing
+from location_aggregator import aggregate_location, ollama_serve
 from twikit_utilities.twikit_client import TwikitClient
 
 async def main():
@@ -29,6 +30,9 @@ async def main():
     await PostQuotesCompiler.compile_quotes_data(client, user_posts_data, screen_name, quotes_file)
     await PostRepostersCompiler.compile_reposters_data(client, user_posts_data, screen_name, reposters_file)
     await PostRepliesCompiler.compile_replies_data(client, user_posts_data, screen_name, replies_file)
+
+    ollama_serve()
+    aggregate_location()
 
 if __name__ == "__main__":
     asyncio.run(main())
